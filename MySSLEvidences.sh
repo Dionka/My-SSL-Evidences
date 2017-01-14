@@ -24,6 +24,7 @@
 #	Requirements:
 #	Tools: Nmap, OpenSSL that supports SSLv2 and SSLv3, Java, Perl, ack
 #	3rd parties tools in use: testssl.sh, O-salt, TestSSLServer.jar
+#	This tools ARE NOT MINE. I only use them to support my script
 #	Input file must be in this format "ip:port" in diffrent lines
 
 echo ""
