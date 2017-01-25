@@ -201,11 +201,12 @@ done < $filetxt
 
 mkdir $project"/results"
 cd $project
-rgrep "RC4\|CBC\|40\|56\|112" | grep -v 256 | grep Accepted | grep -v SSLv3 | grep -v SSLv2 | cut -f1,3,5,6,8,9 -d" " | sed "s/ssl_results_//g" | sed "s/sslscan.txt:Accepted//g" | tr -d /  | tr _ : > "results/weak_ciphers.txt"
+rgrep "RC4\|CBC\|'31m40'\|'31m56'\|'32m112'" | grep "Accepted\|Preferred" | grep -v SSLv3 | grep -v SSLv2 | sed "s/ssl_results_//g" | sed "s/sslscan.txt:Accepted//g" | sed "s/sslscan.txt://g" | sed "s/Preferred/ /g"  |  tr -d /  | tr _ : > "results/weak_ciphers.txt" 
+#rgrep "RC4\|CBC\|40\|56\|112" | grep -v 256 | grep Accepted | grep -v SSLv3 | grep -v SSLv2 | cut -f1,3,5,6,8,9 -d" " | sed "s/ssl_results_//g" | sed "s/sslscan.txt:Accepted//g" | tr -d /  | tr _ : > "results/weak_ciphers.txt"
 
-rgrep "SSLv2" | grep Accepted | cut -f1 -d " "  | sed "s/ssl_results_//g" | sed "s/sslscan.txt:Accepted//g" | tr -d / | tr _ : | sort | uniq > "results/sslv2.txt"
+rgrep "SSLv2" | grep "Accepted\|Preferred" | cut -f1 -d " "  | sed "s/ssl_results_//g" | sed "s/sslscan.txt:Accepted//g" | sed "s/Preferred/ /g" | tr -d / | tr _ : | sort | uniq > "results/sslv2.txt"
 
-rgrep "SSLv3" | grep Accepted | cut -f1 -d " "  | sed "s/ssl_results_//g" | sed "s/sslscan.txt:Accepted//g" | tr -d / | tr _ : | sort | uniq > "results/sslv3.txt"
+rgrep "SSLv3" | grep "Accepted\|Preferred" | cut -f1 -d " "  | sed "s/ssl_results_//g" | sed "s/sslscan.txt:Accepted//g" | sed "s/Preferred/ /g" | tr -d / | tr _ : | sort | uniq > "results/sslv3.txt"
 
 rgrep "State: VULNERABLE" | grep poodle.txt | cut -f1 -d"/" | cut -f3,4 -d"_" | tr _ :  > "results/poodle_nmap.txt"
 
